@@ -33,15 +33,13 @@
       </div>
       <p class="delivery">Novo  |  +50 vendidos</p>
 
-      <h1 class="product-title">Ps3 Playstation 3 + 45 Jogos + 2 Controles</h1>
-    </section>
-    <header class="top-stripe"></header>
-
-    <img
-      src="css/imagens/PS3Versions.png"
-      alt="Imagem do Produto"
-      class="produto-imagem"
-    />
+    <article class="product">
+    <h1 class="product-title">Ps3 Playstation 3 + 45 Jogos + 2 Controles</h1>
+    
+    <img src="css/imagens/PS3Versions.png" class="produto-imagem">
+        <!-- coloque o resto dos textos aqui dentro -->
+    </div>
+</article>
 
     <section class="product-info">
       <!-- preço destacado -->
@@ -165,4 +163,61 @@
 
   <!-- === CONTEÚDO DA PÁGINA FICA ABAIXO === -->
   <div style="margin-top: 80px; padding: 20px;">
+    <style>
+        /* Remove as margens padrão do navegador para a faixa encostar nas bordas */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .faixa-cinza {
+            background-color: #f7f8f7; /* Cor cinza */
+            width: 100%;               /* Largura de ponta a ponta */
+            
+            /* CONTROLE DE ESPESSURA: */
+            /* Para deixar mais FINO, diminua o valor do padding ou height */
+            /* Para deixar mais GROSSO, aumente o valor do padding ou height */
+            padding: 30px 0;           
+            
+            /* Opcional: centralizar texto dentro da faixa */
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Minha faixa cinza -->
+    <div class="faixa-cinza">
+      <h1 class="product-title">Destaques em Games</h1>
+       <p class="delivery">Vendido por</p>
+       <p class="delivery">Vendido por</p>
+       <p class="delivery">Vendido por</p>
+       <p class="delivery">Vendido por</p>
+       <p class="delivery">Vendido por</p>
+      
+    </div>
+
+</body>
+<div class="container-imagens">
+  <img src="css/imagens/faixa-de-cima-topo.png" alt="Imagem 1" class="imagem-ajustada" />
+
+</div>
+
+<style>
+  .container-imagens {
+    display: flex;
+    flex-direction: column; /* empilha as imagens verticalmente */
+    align-items: center; /* centraliza horizontalmente */
+    gap: 10px; /* espaço entre as imagens */
+    margin-top: 20px; /* espaço acima do container para não encostar em outros elementos */
+  }
+
+  .imagem-ajustada {
+    max-width: 80%; /* controla o tamanho máximo da imagem */
+    height: auto; /* mantém a proporção da imagem */
+    display: block;
+  }
+</style>
+
 </html>

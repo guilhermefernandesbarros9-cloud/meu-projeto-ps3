@@ -452,4 +452,24 @@ body {
   margin-top: 16px;
   display: inline-block;
 }
+article.product {
+  display: flex;
+  flex-direction: column; /* empilha imagem, título, texto e botão verticalmente */
+  align-items: center;    /* centraliza horizontalmente todos os elementos */
+  text-align: center;     /* centraliza o texto */
+  max-width: 700px;       /* opcional: limita a largura do bloco */
+  margin: 0 auto 40px;    /* centraliza o bloco na página e dá espaçamento embaixo */
+  padding: 16px;
+  background: #fff;       /* opcional: fundo branco para destacar */
+  border-radius: 8px;     /* opcional: cantos arredondados */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* opcional: sombra leve */
+}
+
+article.product img.produto-imagem {
+  max-width: 360px; /* controla o tamanho da imagem */
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+  display: block;
+}
 }
