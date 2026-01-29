@@ -24,8 +24,17 @@
     <div></div>
     <div></div>
     <div></div>
+ <section class="product-info">
+      <!-- preço destacado -->
+      <div class="price-row">
+        <span class="price">R$ 1.349</span>
+        <!-- remova a linha abaixo se não quiser preço riscado -->
+        <span class="price-old">R$ 2.499</span>
+      </div>
+      <p class="delivery">Novo  |  +50 vendidos</p>
 
-    <h1 class="product-title">Ps3 Playstation 3 + 45 Jogos + 2 Controles</h1>
+      <h1 class="product-title">Ps3 Playstation 3 + 45 Jogos + 2 Controles</h1>
+    </section>
     <header class="top-stripe"></header>
 
     <img
@@ -65,12 +74,95 @@
     - Ele fica "fixo" (posicionamento fixe) e acompanha a tela ao rolar.
     - A "margem azul" em volta é criada por box-shadow (como borda/halo).
     -->
-    <header class="top-stripe"></header>
-
-    <div class="container-produto">
-      <a href="pagina2.html" class="btn-abaixo">Comprar</a>
+    <div class="container-carinho">
+      <a href="teste.html" class="btn-comprar">Comprar</a>
+      <a href="teste.html" class="btn-carrinho">adiciona ao carrinho</a>
     </div>
-    <!-- opcional: script.js se for estender com JS -->
-    <!-- <script src="js/script.js"></script> -->
+
+    <section class="product-info">
+      <!-- preço destacado -->
+      <div class="price-row">
+        <span class="price"></span>
+        <!-- remova a linha abaixo se não quiser preço riscado -->
+        <span class="price-old">R$ 2.499</span>
+      </div>
+
+      <p class="delivery">Vendido por</p>
+      <p class="installments">CS20250204154855 <strong></strong></p>
+
+      <p class="installments">Devolução grátis. <strong></strong></p>
+      <p class="delivery">Você tem 30 dias a partir da data de recebimento.</p>
+
+      <p class="installments">Compra Garantida <strong></strong></p>
+      <p class="delivery">
+        Receba o produto que está esperando ou devolvemos o dinheiro.
+      </p>
+
+    </section>
   </body>
+
+  <div></div> 
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* === CONTAINER DO INPUT === */
+    .top-search {
+      width: 100%; /* ocupa toda a largura da tela */
+      padding: 10px; /* espaçamento interno */
+      
+      
+      /* === POSICIONAMENTO === */
+      position: fixed; /* fixa no topo da página */
+      top: 0; /* para ficar no topo */
+      left: 0;
+      z-index: 1000; /* fica por cima de outros elementos */
+
+      /* === ALINHAMENTO CENTRALIZADO === */
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    /* === FORMULÁRIO === */
+    .top-search form {
+      width: 60%; /* ajuste a largura aqui para esticar mais ou menos */
+      max-width: 400px; /* opcional: limita o tamanho máximo */
+    }
+
+    /* === CAMPO DE TEXTO === */
+    .top-search input[type="text"] {
+      width: 100%;
+      height: 40px;
+
+      /* === BORDAS QUADRADAS === */
+      border: 2px solid #333;
+      border-radius: 0; /* remove qualquer arredondamento */
+
+      padding: 0 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    /* === BOTÃO SUBMIT OCULTO === */
+    .top-search input[type="submit"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- === ÁREA DO INPUT NO TOPO === -->
+  <div class="top-search">
+    <!-- === LINK DE REDIRECIONAMENTO AQUI === -->
+    <form action="https://www.mercadolivre.com.br" method="GET" target="_blank">
+      <input type="text" name="q" placeholder="Digite sua busca..." required />
+      <input type="submit" value="Buscar" />
+    </form>
+  </div>
+
+  <!-- === CONTEÚDO DA PÁGINA FICA ABAIXO === -->
+  <div style="margin-top: 80px; padding: 20px;">
 </html>

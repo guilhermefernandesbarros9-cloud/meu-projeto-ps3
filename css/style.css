@@ -116,43 +116,50 @@ body {
    - box-shadow usado como "margem azul" ao redor do botão
    ------------------------------------- */
 /* garante que o container posicione imagem em cima e botão abaixo, centralizados */
-.container-produto {
-  display: flex;
-  flex-direction: column;
-  align-items: center;    /* centraliza HORIZONTAL (importante) */
-  justify-content: flex-start;
-  gap: 18px;              /* espaço entre imagem e botão */
-  width: 100%;
+/* Container fixo que fica no rodapé, centralizado horizontalmente */
+/* Container fixo que fica no rodapé, centralizado horizontalmente */
+.btn-comprar {
+  background-color: #2563eb;  /* Azul */
+  color: white;
+  /* demais estilos iguais */
 }
 
-/* botão embaixo da imagem: arredondado, com "margem" azul (halo) */
-.btn-abaixo {
-  display: inline-block;
+.btn-carrinho {
+  background-color: #c6dcdf;  /* Verde */
+  color: white;
+  /* demais estilos iguais */
+}
+
+/* Estilos comuns para os dois botões */
+.btn-comprar, .btn-carrinho {
+  display: block;
   padding: 12px 34px;
-  border-radius: 14px;                             /* borda arredondada */
-  background: #2563eb;                             /* cor de fundo */
-  color: #ffffff;                                  /* cor do texto */
-  text-decoration: none;
+  border-radius: 14px;
   font-weight: 700;
   font-size: 16px;
+  text-decoration: none;
   cursor: pointer;
-  margin-top: 6px;                                 /* distancia da imagem */
-  transition: transform .12s ease, box-shadow .12s ease;
-  z-index: 10;
-  /* "margem azul" / halo ao redor do botão */
   box-shadow:
-    0 8px 18px rgba(0,0,0,0.08),                   /* sombra suave */
-    0 0 0 8px rgba(37,99,235,0.10);                /* halo azul leve */
+    0 8px 18px rgba(0,0,0,0.08),
+    0 0 0 8px rgba(37,99,235,0.10);
   border: none;
+  white-space: nowrap;
+  text-align: center;
+  width: 300px;
+  max-width: 90vw;
+  margin: 0 auto;
+  transition: transform .12s ease, box-shadow .12s ease;
 }
 
-/* efeito hover */
-.btn-abaixo:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 12px 28px rgba(0,0,0,0.12),
-    0 0 0 10px rgba(37,99,235,0.12);
+.btn-comprar:hover {
+  background-color: #1e40af; /* Azul mais escuro no hover */
 }
+
+.btn-carrinho:hover {
+  background-color: #9b9b9b; /* Verde mais escuro no hover */
+}
+
+<div> </div>
 
 /* --------- Opcional: centralizar também VERTICALMENTE ---------
    Se quiser o botão (e a imagem) absolutamente no centro da tela,

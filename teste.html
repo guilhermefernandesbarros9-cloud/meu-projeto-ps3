@@ -1,22 +1,158 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Teste Imagem</title>
-    <style>
-      body,
-      html {
-        margin: 0;
-        padding: 0;
-        height: 100%;
-      }
-      body {
-        background-image: url("imagens/pagina1.jpg");
-        background-size: cover;
-        background-position: center;
-      }
-    </style>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Página 2 — Continuação</title>
+    <link rel="stylesheet" href="css/style.css" />
   </head>
-  <body></body>
+  <body>
+    <!-- Mesma faixa fixa no topo -->
+    <header class="top-stripe">
+      <img src="css/imagens/faixa-de-cima-topo.png" />
+    </header>
+    <header class="top-stripe">
+      <img src="css/imagens/logo.png" alt="Logo" class="logo-topo" />
+    </header>
+ <div></div>
+<!-- Exemplo de conteúdo central da página 2 -->
+<div class="container-carinhoo">
+    <!-- EDITE AQUI: O link para onde o botão leva e o texto do botão -->
+    <a href="pagina3.html" class="btn-compraar">Comprar</a>
+    
+    <link rel="stylesheet" href="css/style.css" />
+    
+    <section class="product-info">
+        <div class="price-row">
+            <!-- EDITE AQUI: Coloque o preço atual dentro do span -->
+            <span class="price">R$ 99,90</span>
+            <span class="price-old">R$ 150,00</span>
+        </div>
+
+        <!-- EDITE AQUI: Texto de entrega -->
+        <p class="delivery">Frete grátis para sua região</p>
+    </section>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            /* EDITE AQUI: Aumente ou diminua o padding para afastar o conteúdo do topo da tela */
+            padding: 50px 20px;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            /* EDITE AQUI: O padding interno do campo de texto */
+            padding: 12px;
+            /* EDITE AQUI: O margin afasta o input dos outros elementos (cima/baixo) */
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 0;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            /* EDITE AQUI: Adicione margin-top para afastar o botão do input acima dele */
+            margin-top: 20px; 
+        }
+    </style>
+</div>
+  </head>
+  <body>
+    <div class="form-container">
+      <h2>Informe seu endereço</h2>
+      <form action="pagina2.html" method="GET">
+        <input
+          type="text"
+          name="endereco"
+          placeholder="Digite seu endereço completo"
+          required
+        />
+        <button type="submit">Continuar</button>
+      </form>
+    </div>
+  </body>
+  <div></div> 
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    /* === CONTAINER DO INPUT === */
+    .top-search {
+      width: 100%; /* ocupa toda a largura da tela */
+      padding: 10px; /* espaçamento interno */
+      
+      
+      /* === POSICIONAMENTO === */
+      position: fixed; /* fixa no topo da página */
+      top: 0; /* para ficar no topo */
+      left: 0;
+      z-index: 1000; /* fica por cima de outros elementos */
+
+      /* === ALINHAMENTO CENTRALIZADO === */
+      display: flex;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    /* === FORMULÁRIO === */
+    .top-search form {
+      width: 60%; /* ajuste a largura aqui para esticar mais ou menos */
+      max-width: 400px; /* opcional: limita o tamanho máximo */
+    }
+
+    /* === CAMPO DE TEXTO === */
+    .top-search input[type="text"] {
+      width: 100%;
+      height: 40px;
+
+      /* === BORDAS QUADRADAS === */
+      border: 2px solid #333;
+      border-radius: 0; /* remove qualquer arredondamento */
+
+      padding: 0 10px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    /* === BOTÃO SUBMIT OCULTO === */
+    .top-search input[type="submit"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- === ÁREA DO INPUT NO TOPO === -->
+  <div class="top-search">
+    <!-- === LINK DE REDIRECIONAMENTO AQUI === -->
+    <form action="https://www.mercadolivre.com.br" method="GET" target="_blank">
+      <input type="text" name="q" placeholder="Digite sua busca..." required />
+      <input type="submit" value="Buscar" />
+    </form>
+  </div>
+
+  <!-- === CONTEÚDO DA PÁGINA FICA ABAIXO === -->
+  <div style="margin-top: 80px; padding: 20px;">
 </html>

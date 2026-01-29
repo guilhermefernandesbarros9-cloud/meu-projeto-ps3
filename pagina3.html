@@ -27,23 +27,21 @@
       >
         <h2 style="margin: 12px 0 18px; color: #222">
           Como você prefere pagar?
-        </h2>
+        <!-- Opção de seleção do PIX modificada para ser um link direto -->
+<div class="payment-option" style="position: relative;">
+  <div style="padding: 3px;">
+    <h4>Pix</h4>
+    <p>Aprovação imediata</p>
+  </div>
+  
+  <!-- Esse link invisível cobre todo o quadrado do Pix e te joga para a pg4.html -->
+  <a href="pg4.html" style="position: absolute; inset: 0; display: block; z-index: 999;"></a>
+</div>
 
-        <!-- Opções de pagamento -->
-        <div class="payment-options">
-          <button class="payment-option" data-method="pix" aria-pressed="false">
-            <strong>Pix</strong>
-            <div class="small">Aprovação imediata</div>
-          </button>
-
-          <button
-            class="payment-option"
-            data-method="card"
-            aria-pressed="false"
-          >
-            <strong>Cartão de crédito</strong>
-            <div class="small">Adicionar cartão</div>
-          </button>
+        <button class="payment-option" data-method="card" aria-pressed="false">
+          <strong>Cartão de crédito</strong>
+          <div class="small">Adicionar cartão</div>
+        </button>
         <!-- Área que muda conforme a opção -->
         <div id="payment-detail" style="margin-top: 18px">
           <!-- PIX (padrão oculto) -->

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tela de Pagamento Pix</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #f1f3f5;
+      }
+
+      .page-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .payment-container {
+        width: clamp(320px, 92%, 420px);
+        border-radius: 10px;
+        overflow: hidden;
+        background-color: #ffffff;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header-green {
+        background: linear-gradient(180deg, #0b7a36 0%, #0a6f2f 100%);
+        color: #fff;
+        padding: 18px 16px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .header-green .sub {
+        font-weight: 500;
+        font-size: 13px;
+        margin-top: 6px;
+        opacity: 0.95;
+      }
+
+      .content-white {
+        padding: 18px;
+        color: #222;
+        font-size: 14px;
+        line-height: 1.3;
+      }
+
+      .price-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .price {
+        font-weight: 700;
+        font-size: 16px;
+      }
+      .note {
+        color: #666;
+        font-size: 13px;
+      }
+      .timer {
+        color: #0a6f2f;
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .pix-code {
+        background: #f3f5f7;
+        padding: 10px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 12px;
+        color: #0b1b2b;
+        margin: 12px 0;
+        word-break: break-all;
+      }
+
+      .btn {
+        display: block;
+        width: 100%;
+        padding: 12px 14px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 700;
+        cursor: pointer;
+        margin: 8px 0;
+      }
+      .btn-primary {
+        background: #0b53d6;
+        color: #fff;
+      }
+      .btn-cancel {
+        background: #6b6b6b;
+        color: #fff;
+      }
+
+      .file-row {
+        margin-top: 10px;
+        display: none;
+      } /* escondido até o tempo acabar */
+      .file-row.show {
+        display: block;
+      }
+
+      .file-row input[type="file"] {
+        margin-top: 8px;
+        width: 100%;
+      }
+
+      .expired-notice {
+        display: none;
+        margin-top: 12px;
+        padding: 10px;
+        background: #fff6e6;
+        border-radius: 6px;
+        color: #6b4b00;
+        font-weight: 600;
+      }
+
+      .qr-wrap {
+        display: flex;
+        justify-content: center;
+        margin: 18px 0 8px;
+      }
+      .qr-wrap img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+        border-radius: 6px;
+        background: #fff;
+        padding: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      }
+
+      .instructions {
+        color: #555;
+        font-size: 13px;
+        margin-top: 8px;
+      }
+      .instructions ol {
+        padding-left: 20px;
+        margin: 6px 0 0 0;
+      }
+
+      @media (max-width: 360px) {
+        .qr-wrap img {
+          width: 130px;
+          height: 130px;
+        }
+        .header-green {
+          font-size: 15px;
+          padding: 14px;
+        }
+        .content-white {
+          padding: 14px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrap">
+      <div class="payment-container">
+        <div class="header-green">
+          Pague R$ <span id="valor-top">99,90</span> via Pix
+          <div class="sub">para garantir sua compra</div>
+        </div>
+
+        <div class="content-white">
+          <div class="price-row">
+            <div>
+              <div class="price">
+                Valor total: R$ <span id="valor">99,90</span>
+              </div>
+              <div class="note">
+                Fique ciente: seu código é válido por
+                <span class="timer" id="timer-text">10:00</span>
+              </div>
+            </div>
+          </div>
+
+          <!--
+          -- TROQUE AQUI A CHAVE PIX (substitua o conteúdo entre as tags)
+          -- ATENÇÃO: o botão de copiar usa exatamente o texto contido aqui
+        -->
+          <div class="pix-code" id="pixCode">
+            00020126580014br.gov.bcb.pix0136exemplo@pix.com.br5204000053039865405100.005802BR5925Nome
+            do Recebedor6009Sao Paulo61080540900062070503***6304ABCD
+          </div>
+
+          <button class="btn btn-primary" id="btnCopy">Copiar código</button>
+          <button class="btn btn-cancel" id="btnCancel">Cancelar</button>
+
+          <!-- aviso que aparece quando o tempo expira -->
+          <div class="expired-notice" id="expiredNotice">
+            Tempo expirado — se você já pagou, por favor envie o comprovante.
+          </div>
+
+          <!-- UPLOAD: escondido enquanto o tempo não acabar -->
+          <div class="file-row" id="fileRow">
+            <label for="comprovante">Envie o comprovante de pagamento:</label>
+            <input
+              type="file"
+              id="comprovante"
+              accept="image/*,application/pdf"
+            />
+            <button class="btn btn-primary" id="btnSend">
+              Já paguei — Enviar comprovante
+            </button>
+          </div>
+
+          <!--
+          -- TROQUE AQUI O SRC DO QR CODE (substitua a URL)
+          -- Exemplo: use sua própria imagem ou gere com a chave do pix
+        -->
+          <div class="qr-wrap" aria-hidden="false">
+            <img
+              id="qrImg"
+              alt="QR Code Pix"
+              src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=00020126580014br.gov.bcb.pix0136exemplo@pix.com.br5204000053039865405100.005802BR5925Nome%20do%20Recebedor61080540900062070503***6304ABCD"
+            />
+          </div>
+
+          <div class="instructions">
+            <strong>Você também pode pagar pelo QR Code Pix:</strong>
+            <ol>
+              <li>Acesse seu Internet Banking ou app de pagamentos.</li>
+              <li>Escolha pagar via Pix e escaneie o QR Code.</li>
+              <li>Ou cole o código Pix (use o botão "Copiar código").</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // --- CONFIGURAÇÃO: altere aqui se quiser outro tempo (em segundos) ---
+      let totalSeconds = 10 * 60; // 10 minutos = 600s. Mude para testar (ex: 30 para 30s).
+
+      const timerText = document.getElementById("timer-text");
+      const pixCodeEl = document.getElementById("pixCode");
+      const btnCopy = document.getElementById("btnCopy");
+      const fileRow = document.getElementById("fileRow");
+      const expiredNotice = document.getElementById("expiredNotice");
+      const btnSend = document.getElementById("btnSend");
+      const comprovanteInput = document.getElementById("comprovante");
+
+      // Atualiza o display do timer no formato MM:SS
+      function formatTimer(s) {
+        const m = Math.floor(s / 60);
+        const sec = s % 60;
+        return `${m.toString().padStart(2, "0")}:${sec.toString().padStart(2, "0")}`;
+      }
+
+      function updateTimerDisplay() {
+        timerText.textContent = formatTimer(totalSeconds);
+      }
+
+      // roda a cada segundo
+      const intervalId = setInterval(function () {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          updateTimerDisplay();
+        } else {
+          clearInterval(intervalId);
+          onTimerExpired();
+        }
+      }, 1000);
+
+      // Atualiza a visualização inicial
+      updateTimerDisplay();
+
+      // Quando o tempo expirar: mostrar o upload e a mensagem
+      function onTimerExpired() {
+        expiredNotice.style.display = "block";
+        fileRow.classList.add("show"); // exibe o bloco de upload
+        // opcional: desabilitar copiar (se quiser)
+        // btnCopy.disabled = true;
+      }
+
+      // Copiar código Pix (copia o texto do #pixCode)
+      btnCopy.addEventListener("click", function () {
+        const pix = pixCodeEl.innerText.trim();
+        if (!pix) {
+          alert("Não há código para copiar.");
+          return;
+        }
+        if (!navigator.clipboard) {
+          const ta = document.createElement("textarea");
+          ta.value = pix;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          alert("Código Pix copiado!");
+          return;
+        }
+        navigator.clipboard.writeText(pix).then(
+          function () {
+            // feedback breve sem atrapalhar
+            btnCopy.textContent = "Copiado!";
+            setTimeout(() => (btnCopy.textContent = "Copiar código"), 2000);
+          },
+          function () {
+            alert("Falha ao copiar. Tente manualmente.");
+          },
+        );
+      });
+
+      // Cancelar
+      document
+        .getElementById("btnCancel")
+        .addEventListener("click", function () {
+          // EDITE AQUI: ação do cancelar (ex: voltar para página anterior)
+          // window.location.href = 'paginaAnterior.html';
+          alert("Pagamento cancelado (demo).");
+        });
+
+      // Enviar comprovante: envia o arquivo + chave pix
+      btnSend.addEventListener("click", function () {
+        if (!comprovanteInput.files || comprovanteInput.files.length === 0) {
+          alert("Escolha um arquivo antes de enviar.");
+          return;
+        }
+
+        const file = comprovanteInput.files[0];
+        const pix = pixCodeEl.innerText.trim();
+
+        const form = new FormData();
+        form.append("comprovante", file);
+        form.append("pixCode", pix);
+        form.append("valor", document.getElementById("valor").innerText);
+
+        // Exemplo: envie para seu backend (descomente e ajuste a URL)
+        /*
+      fetch('/api/upload-comprovante', {
+        method: 'POST',
+        body: form
+      }).then(res => res.json())
+        .then(data => {
+          alert('Comprovante enviado com sucesso!');
+        }).catch(err => {
+          alert('Erro ao enviar: ' + err.message);
+        });
+      */
+
+        // Demo sem backend:
+        alert(
+          "Comprovante preparado para envio (demo).\nArquivo: " +
+            file.name +
+            "\nChave Pix enviada junto.",
+        );
+      });
+
+      // Onde trocar o PIX e QR (resumo):
+      // - Para mudar a CHAVE PIX: altere o conteúdo entre as tags <div id="pixCode"> ... </div>
+      // - Para mudar o QR: altere o atributo src do <img id="qrImg" src="...">
+      // - Caso queira atualizar dinamicamente via JS, use:
+      //     pixCodeEl.innerText = 'NOVA_CHAVE_PIX';
+      //     document.getElementById('qrImg').src = 'URL_DO_NOVO_QR';
+    </script>
+  </body>
+</html>
